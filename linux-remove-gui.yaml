@@ -1,0 +1,25 @@
+---
+- name: Disable the GUI on CentOS
+  hosts: all
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+    - name: Set default target to multi-user (runlevel 3)
+      systemd:
+        name: multi-user.target
+        enabled: yes
+        state: started
+        set_default: yes
+
+    - name: Remove graphical target packages
+      yum:
+        name: 
+          - gdm
+          - gnome-shell
+          - gnome-classic-session
+          - gnome-session
+          - gnome-session-xsession
+          - gnome-terminal
+          - gnome-desktop3
+        state: absent
