@@ -1,0 +1,28 @@
+---
+- name: Enable the GUI on CentOS
+  hosts: all
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+    - name: Install GNOME desktop packages
+      yum:
+        name: 
+          - "@gnome-desktop"  # De groepsnaam voor het GNOME desktop omgeving
+        state: present
+
+    - name: Set default target to graphical (runlevel 5)
+      systemd:
+        name: graphical.target
+        enabled: yes
+        state: started
+        set_default: yes
+
+    - name: Reboot the server to apply GUI changes
+      ansible.builtin.reboot:
+        msg: "Rebooting for GUI setup"
+        connect_timeout: 5
+        reboot_timeout: 300
+        pre_reboot_delay: 0
+        post_reboot_delay: 60
+        test_command: whoami
