@@ -1,0 +1,9 @@
+---
+- name: Install updates on CentOS/RHEL servers
+  hosts: your_servers_group
+  become: true
+  tasks:
+    - name: Update all packages to the latest version
+      yum:
+        name: '*'
+        state: latest
