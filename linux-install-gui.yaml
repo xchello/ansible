@@ -14,9 +14,7 @@
     - name: Set default target to graphical (runlevel 5)
       systemd:
         name: graphical.target
-        enabled: yes
         state: started
-        set_default: yes
 
     - name: Reboot the server to apply GUI changes
       ansible.builtin.reboot:
