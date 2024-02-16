@@ -10,7 +10,6 @@
         name: multi-user.target
         enabled: yes
         state: started
-        set_default: yes
 
     - name: Remove graphical target packages
       yum:
